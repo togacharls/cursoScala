@@ -1,2 +1,4 @@
 # cursoScala
-Curso de scala impartido en Noviembre 2017
+Curso de scala
+
+guiones contiene los pdf usados como guía durante el curso
