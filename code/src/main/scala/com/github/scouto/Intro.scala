@@ -1,4 +1,4 @@
-package com.github.scouto.intro
+package com.github.scouto
 
 /**
   * Created by scouto.
