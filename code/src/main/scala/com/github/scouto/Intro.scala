@@ -1,4 +1,4 @@
-package com.github.scouto.intro
+package com.github.scouto
 
 /**
   * Created by scouto.
@@ -42,7 +42,19 @@ object MyApp extends App {
   }
 
 
-}
+  def operate[A,B] (x: A, y:A)(f: (A, A) => B) = f(x,y)
+
+  def max(list: List[Int]): Int = ???
+
+  def second(list: List[Int]) : Int = ???
+
+  def nth(list: List[Int], n: Int): Int = ???
+
+
+
+
+
+  }
 
 
 
