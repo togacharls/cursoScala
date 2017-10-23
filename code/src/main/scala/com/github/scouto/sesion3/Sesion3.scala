@@ -13,12 +13,38 @@ object Sesion3 extends App{
   println(date.getClass)
 
   val dateU = new UtilDate(System.currentTimeMillis())
-  println(date.getClass)
-
-  def uncurry(f: Int => Int => Int): (Int, Int) => Int = ???
+  println(dateU.getClass)
 
 
-  def curry(f: (Int, Int) => Int): Int => Int => Int = ???
+
+
+  def uncurry(f: Int => Int => Int): (Int, Int) => Int = {
+    (a, b) => f(a)(b)
+  }
+
+  def curry(f: (Int, Int) => Int): Int => Int => Int = {
+    a => b =>f(a,b)
+  }
+
+  def composicion(f: Int => String, g: Int => Int): Int => String = {
+    a => f(g(a))
+  }
+
+  def composicion2(f: Int => String, g: Int => Int) = {
+    a: Int => f(g(a))
+  }
+
+  def genericuncurry[A,B,C](f: A => B => C): (A, B) => C = {
+    (a, b) => f(a)(b)
+  }
+
+  def genericcurry[A,B,C](f: (A, B) => C): A => B => C = {
+    a => b =>f(a,b)
+  }
+
+  def genericComposicion[A,B,C](f: B => C, g: A => B): A => C = {
+    a => f(g(a))
+  }
 
 
 }
