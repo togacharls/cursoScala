@@ -16,7 +16,7 @@ object MyApp extends App {
   }
 
   def factorial(n: Int): Int = {
-
+    //@anotation.tailrec -> Avoid Stackoverflow
     @annotation.tailrec
     def rec(acc: Int, current: Int): Int = {
       if (current <= 0) acc
@@ -44,10 +44,17 @@ object MyApp extends App {
     }
   }
 
+
   /*
   * Función que devuelve el segundo elemento de una lista
   * */
   def second(list: List[Int]): Int = list.tail.head
+  def second_(list: List[Int]): Option[Int] = {
+    list match{
+      case h::h2::t => Some(h2)
+      case _ => None
+    }
+  }
 
   /*
   * Función que devuelva el nth elemento de una lista
@@ -56,6 +63,14 @@ object MyApp extends App {
     if(n > list.length || n < 0) throw new Exception(s"list(${n}) doesn't exists")
     if(n == 0) list.head
     else nth(list.tail, n-1)
+  }
+
+  def nth_(list:List[Int], n: Int): Option[Int]={
+    list match{
+      case h::t if n == 0 => Some(h)
+      case h::t if n > 0 => Some(h) => nth(t, n-1)
+      case _ => None
+    }
   }
 
 
