@@ -48,13 +48,59 @@ object Sesion2 {
     }
   }
 
-  def penultimate(list: List[Int]): Option[Int] = ???
+  def penultimate(list: List[Int]): Option[Int] = {
+    list.reverse match {
+      case h::Nil  => None
+      case h::t => Some(t.head)
+      case _ => None
+    }
+  }
 
-  def duplicates(list: List[Int], k: Int): List[Int] = ???
+  def duplicates(list: List[Int], k: Int): List[Int] = {
+//    def nthTimes(x: Int, n: Int) : List[Int] = {
+//      if (n==0) List()
+//      else x::nthTimes(x, n-1)
+//    }
+//
+//    list.flatMap(nthTimes(_, k))
 
-  def rotate(list: List[Int], x: Int): List[Int] = ???
 
-  def isPalindrome(word: String): Boolean = ???
+
+  //  for {
+  //    elem <- list
+  //  } yield List.fill(k)(elem)
+  //}.flatten
+
+
+//    list.flatMap(e => List.fill(k)(e))
+
+
+    list.flatMap(x => (1 to k).map(_ => x))
+
+  }
+
+  def rotate(list: List[Int], x: Int): List[Int] = {
+    list match  {
+      case Nil => list
+      case h::Nil => list
+      case h::t if x == 0 => list
+      case h::t if x > 0 => rotate(t:+h, x-1)
+      case h::t if x < 0 => rotate(t.reverse.head::h::t.reverse.tail.reverse, x+1)
+    }
+
+
+//    list match {
+//      case Nil => Nil
+//      case l if (x > 0) => rotate(l.tail:::List(l.head), x-1)
+//      case l if (x < 0) => rotate(l.last::l.init, x+1)
+//      case l => l
+//    }
+
+
+  }
+  def isPalindrome(word: String): Boolean = {
+    word.toUpperCase == word.reverse.toUpperCase
+  }
 
 
 
