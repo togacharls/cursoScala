@@ -24,11 +24,8 @@ object Sesion4 extends App{
 
   def msort[T]( xs: List[T])(implicit less: (T, T) => Boolean): List[T] = {
 
-
-
+    @annotation.tailrec
     def accsort (acc: List[T], pending: List[T]): List[T] ={
-
-
       pending match {
         case h::Nil => acc
         case h::t if less(h, t.head) && !isSorted(t.tail) => accsort(acc:::List(h):::List(t.head), t.tail)
@@ -44,7 +41,31 @@ object Sesion4 extends App{
   }
 
 
-  msort(List(2, 1))((a:Int,b:Int) => a<=b)
+  def msort2[T](less: (T, T) => Boolean, list: List[T]): List[T] = {
 
+
+
+
+    def go(left: List[T], right: List[T]): List[T] = {
+      (left, right) match {
+        case (left, Nil) => left
+        case (Nil, right) => right
+        case (h1::t1, h2::t2) =>
+          if (less(h1, h2)) h1::go(t1, right)
+          else h2::go(left, t2)
+
+      }
+    }
+
+    val n = list.length / 2
+    if (n == 0) list
+    else {
+      val (l, r) = list.splitAt(n)
+      go(msort2(less, l), msort2(less, r))
+    }
+
+
+
+  }
 
 }
