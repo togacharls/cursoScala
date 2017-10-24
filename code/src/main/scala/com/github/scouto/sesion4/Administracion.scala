@@ -1,4 +1,4 @@
-package com.github.scouto.sesion3
+package com.github.scouto.sesion4
 
 /**
   * Created by scouto.
@@ -14,9 +14,9 @@ class Administracion(val relacionAlumnos: Map[Asignatura, List[Alumno]] = Map())
   def alta(alumno: Alumno, asignatura: Asignatura): Option[Administracion] = {
     val alumnos = relacionAlumnos.getOrElse(asignatura, List())
     alumnos match {
-      case Nil => Some(new Administracion(relacionAlumnos + (asignatura -> List(alumno))))
+      case Nil => Some(Administracion(relacionAlumnos + (asignatura -> List(alumno))))
       case l if l.contains(alumno) => None
-      case l if l.size < asignatura.plazas => Some(new Administracion(relacionAlumnos + (asignatura -> (alumno :: l))))
+      case l if l.size < asignatura.plazas => Some(Administracion(relacionAlumnos + (asignatura -> (alumno :: l))))
       case _ => None
     }
 
@@ -39,7 +39,7 @@ class Administracion(val relacionAlumnos: Map[Asignatura, List[Alumno]] = Map())
 
     alumnos match {
       case Nil => Left("Alumno no inscrito")
-      case l if l.contains(alumno) => Right(new Administracion(relacionAlumnos + (asignatura -> alumnos.filterNot(_ == alumno))))
+      case l if l.contains(alumno) => Right(Administracion(relacionAlumnos + (asignatura -> alumnos.filterNot(_ == alumno))))
       case _ => Left("Alumno no inscrito")
     }
 
@@ -50,4 +50,14 @@ class Administracion(val relacionAlumnos: Map[Asignatura, List[Alumno]] = Map())
     //      Left("Alumno no inscrito")
 
   }
+}
+
+object Administracion {
+  def apply(relacionAlumnos: Map[Asignatura, List[Alumno]])  = new Administracion(relacionAlumnos)
+
+  def unapply(adm: Administracion): Option[Map[Asignatura, List[Alumno]]] = {
+    Some(adm.relacionAlumnos)
+  }
+
+
 }

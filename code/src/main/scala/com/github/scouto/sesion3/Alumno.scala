@@ -9,5 +9,6 @@ package com.github.scouto.sesion3
 class Alumno(nombre:String, apellidos: String){
 
 
-
 }
+
+
