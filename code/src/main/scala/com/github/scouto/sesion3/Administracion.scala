@@ -12,7 +12,15 @@ class Administracion (val relacionAlumnos: Map[Asignatura, List[Alumno]] = Map()
     * @param asignatura
     * @return
     */
-  def alta(alumno: Alumno, asignatura: Asignatura): Option[Administracion] = ???
+  def alta(alumno: Alumno, asignatura: Asignatura): Option[Administracion] = {
+    val alumnos = relacionAlumnos.getOrElse(asignatura, List())
+    alumnos match {
+      case Nil => Some(new Administracion(relacionAlumnos + (asignatura -> List(alumno))))
+      case l if !l.contains(alumno) => None
+      case l if l.size < asignatura.limiteAlumnos => Some( new Administracion(relacionAlumnos + (asignatura -> alumno :: l)) )
+      case _ => None
+    }
+  }
 
   /**
     * Debe dar de baja un alumno o levantar un error si no es posible
@@ -20,6 +28,16 @@ class Administracion (val relacionAlumnos: Map[Asignatura, List[Alumno]] = Map()
     * @param asignatura
     * @return
     */
-  def baja(alumno: Alumno, asignatura: Asignatura): Either[String, Administracion] = ???
-
+  def baja(alumno: Alumno, asignatura: Asignatura): Either[String, Administracion] = {
+    val alumnos = relacionAlumnos.getOrElse(asignatura, List())
+    alumnos match {
+      case l if l.contains(alumno) => Right( new Administracion(relacionAlumnos.filterNot(asignatura) + (asignatura -> relacionAlumnos.filter(asignatura).filterNot(alumno))))
+      case _ => Left("Error: Alumno no inscrito")
+    }
   }
+
+}
+
+class Alumno(var nombre: String, var apellido:String)
+class Asignatura(var nombre: String, var limiteAlumnos:Int = 30, val descripcion)
+

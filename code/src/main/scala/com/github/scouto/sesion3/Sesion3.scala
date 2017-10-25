@@ -15,12 +15,20 @@ object Sesion3 extends App{
   val dateU = new UtilDate(System.currentTimeMillis())
   println(date.getClass)
 
-  def uncurry(f: Int => Int => Int): (Int, Int) => Int = ???
+  def uncurry(f: Int => Int => Int): (Int, Int) => Int = (a, b) => f(a)(b)
+
+  def curry(f: (Int, Int) => Int): Int => Int => Int = a => b => f(a, b)
+
+  def composicion(f:Int => String, g:Int => Int): Int => String = a => f(g(a))
+  /*f compose g*/
 
 
-  def curry(f: (Int, Int) => Int): Int => Int => Int = ???
+  /*Forma genérica. Es decir, es independiente al tipo de los parámetros*/
+  def uncurryGen[A, B, C](f: A => B => C): (A, B) => C = (a, b) => f(a)(b)
 
+  def curryGen[A, B, C](f: (A, B) => C): A => B => C = a => b => f(a, b)
 
+  def composicionGen[A, B, C](f:B => C, g:A => C): A => C = a => f(g(a))
 }
 
 class Person (private val _name: String, private var _age: Int = 0) {

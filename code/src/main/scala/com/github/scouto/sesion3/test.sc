@@ -1,3 +1,2 @@
-def composicion(f: Int => String, g: Int => Int): Int => String = {
-  f compose g
-}
+class Alumno(var nombre: String, var apellido:String)
+class Asignatura(var nombre: String, var limiteAlumnos:Int = 30)
