@@ -1,10 +1,10 @@
-package com.github.scouto
+package com.github.scouto.sesion1
 
 /**
   * Created by scouto.
   */
 
-import MyApp._
+import com.github.scouto.sesion1.MyApp._
 import org.scalatest._
 
 class IntroTest extends FlatSpec with Matchers {

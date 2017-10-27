@@ -7,6 +7,22 @@ import scala.annotation.tailrec
   */
 object Sesion4 extends App{
 
+
+  //Exercise 2.1
+  def fib(n: Int): BigInt = {
+
+    @tailrec
+    def loop (acc1: BigInt, acc2: BigInt, x: Int) : BigInt = {
+
+      if (x == n) acc1 + acc2
+      else loop (acc2, acc1+ acc2, x+1)
+
+    }
+
+    if (n<2) n
+    else loop (0, 1, 2)
+  }
+
   def isSorted[A](as: List[A])(implicit ordered: (A,A) => Boolean): Boolean = {
 
     @tailrec
