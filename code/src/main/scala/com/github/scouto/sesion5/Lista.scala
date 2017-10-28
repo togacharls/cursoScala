@@ -17,7 +17,7 @@ object Lista {
 
   def sum(ints: Lista[Int]): Int = ???
 
-  def product(ints: Lista[Int]) : Double = ???
+  def product(ints: Lista[Double]) : Double = ???
 
   def tail[A](list: Lista[A]): Lista[A] = ???
 
