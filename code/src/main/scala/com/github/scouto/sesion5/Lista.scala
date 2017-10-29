@@ -46,11 +46,11 @@ object Lista {
 
   // -------------------- Sesion 6 --------------------
 
-  def foldRight[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = ???
+  def foldRight[A,B](as: Lista[A], z: B) (f: (A, B) => B): B = ???
 
   def sumFold(ints: Lista[Int]): Int = ???
 
-  def productFold(ints: Lista[Int]) : Double = ???
+  def productFold(ints: Lista[Int]): Double = ???
 
   def length[A](as: Lista[A]): Int = ???
 
@@ -59,23 +59,40 @@ object Lista {
 
   def sumFoldLeft(ints: Lista[Int]): Int = ???
 
-  def productFoldLeft(ints: Lista[Int]) : Double = ???
+  def productFoldLeft(ints: Lista[Int]): Double = ???
 
   def lengthFoldLeft[A](as: Lista[A]): Int = ???
 
   def reverse[A](as: Lista[A]): Lista [A] = ???
 
-  def foldRightbyLeft[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = ???
+  def foldRightbyLeft[A,B](as: Lista[A], z: B) (f: (B, A) => B): B = ???
 
-  def foldLeftbyRight[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = ???
-
-  def appendfoldLeft[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
+  def foldLeftbyRight[A,B](as: Lista[A], z: B) (f: (B, A) => B): B = ???
 
   def appendfoldLeft[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
 
-  def appendLists[A](as: List[List[A]]): List[A] = ???
+  def appendfoldLeft[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
 
-  }
+  def appendLists[A](as: Lista[Lista[A]]): Lista[A] = ???
+
+
+  // -------------------- Sesion 7 --------------------
+
+  def addOne(l: Lista[Int]): Lista[Int] = ???
+
+  def doubleToString(l: Lista[Double]): Lista[String] = ???
+
+  def map[A, B](l: Lista[A])(f: A => B): Lista[B] = ???
+
+  def filter[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
+
+  def flatMap[A, B](l: Lista[A])(f: A => Lista[B]): Lista[B] = ???
+
+  def filterFlatMap[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
+
+  def tieneSubsecuencia[A](lista: Lista[A], sub: Lista[A]): Boolean = ???
+
+}
 
 
 
