@@ -24,6 +24,17 @@ class ListaTest extends FlatSpec with Matchers with PropertyChecks{
 
 
 
+
+  "product" should "return the proper value" in {
+    product(Lista(1,2)) should be (2)
+    product(Lista()) should be (1)
+    product(Lista(-1,2)) should be (-2)
+    product(Lista(16)) should be (16)
+    product(Lista(5, 5)) should be (25)
+  }
+
+
+
   }
 
 

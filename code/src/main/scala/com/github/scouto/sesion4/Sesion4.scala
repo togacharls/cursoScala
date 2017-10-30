@@ -8,44 +8,41 @@ import scala.annotation.tailrec
 object Sesion4 extends App{
 
 
-  //Exercise 2.1
   def fib(n: Int): BigInt = {
 
     @tailrec
     def loop (acc1: BigInt, acc2: BigInt, x: Int) : BigInt = {
-
       if (x == n) acc1 + acc2
       else loop (acc2, acc1+ acc2, x+1)
-
     }
 
     if (n<2) n
     else loop (0, 1, 2)
   }
 
-  def isSorted[A](as: List[A])(implicit ordered: (A,A) => Boolean): Boolean = {
+  def isSorted[A](as: List[A], f: (A,A) => Boolean): Boolean = {
 
     @tailrec
     def loop (rest: List[A]): Boolean = {
       rest match {
         case Nil => true
         case h::Nil => true
-        case h1::t if ordered(h1, t.head) => loop (t)
-        case h1::t if !ordered(h1, t.head) => false
+        case h1::t if f(h1, t.head) => loop (t)
+        case h1::t if !f(h1, t.head) => false
       }
     }
     loop (as)
   }
 
 
-  def msort[T]( xs: List[T])(implicit less: (T, T) => Boolean): List[T] = {
+  def msort[T]( xs: List[T], less: (T, T) => Boolean): List[T] = {
 
     @annotation.tailrec
     def accsort (acc: List[T], pending: List[T]): List[T] ={
       pending match {
-        case h::Nil => acc
-        case h::t if less(h, t.head) && !isSorted(t.tail) => accsort(acc:::List(h):::List(t.head), t.tail)
-        case h::t if less(h, t.head) && isSorted(t.tail) => acc:::pending
+        case h::Nil => acc:::List(h)
+        case h::t if less(h, t.head) && !isSorted(t.tail, less) => accsort(acc:::List(h):::List(t.head), t.tail)
+        case h::t if less(h, t.head) && isSorted(t.tail, less) => acc:::pending
         case h::t if !less(h, t.head) => accsort(acc:::List(t.head):::List(h), t.tail)
         case _ => acc
 
@@ -82,6 +79,24 @@ object Sesion4 extends App{
 
 
 
+  }
+
+
+  def mSort3[T](less:(T,T)=>Boolean, l:List[T]) :List[T] = {
+    val m = l.length / 2
+    if (m == 0) l
+    else {
+      @tailrec
+      def merge(ls: List[T], rs: List[T], acc: List[T] = List()): List[T] = (ls, rs) match {
+        case (Nil, _) => acc ++ rs
+        case (_, Nil) => acc ++ ls
+        case (l :: ls1, r :: rs1) =>
+          if (less(l, r)) merge(ls1, rs, acc :+ l)
+          else merge(ls, rs1, acc :+ r)
+      }
+      val (a, b) = l splitAt m
+      merge(mSort3(less,a), mSort3(less,b))
+    }
   }
 
 }
