@@ -21,12 +21,12 @@ class ListaSesion6Test extends FlatSpec with Matchers with PropertyChecks{
 
 
   "productFold" should "work the same as product" in {
-    productFold(Lista()) should be (product(Lista()))
-    productFold(Vacio) should be (product(Vacio))
-    productFold(Lista(1.5,2)) should be (product(Lista(1.5,2)))
-    productFold(Lista(-1,2)) should be (product(Lista(-1,2)))
-    productFold(Lista(16)) should be (product(Lista(16)))
-    productFold(Lista(16, -20)) should be ( product(Lista(16, -20)))
+   productFold(Lista()) should be (product(Lista()))
+   productFold(Vacio) should be (product(Vacio))
+   productFold(Lista(1.5,2)) should be (product(Lista(1.5,2)))
+   productFold(Lista(-1,2)) should be (product(Lista(-1,2)))
+   productFold(Lista(16)) should be (product(Lista(16)))
+   productFold(Lista(16, -20)) should be ( product(Lista(16, -20)))
   }
 
   "length" should "be 0 for empty lists" in {
