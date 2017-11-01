@@ -107,12 +107,7 @@ object Lista {
 
   // -------------------- Sesion 6 --------------------
 
-  def foldRight[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = {
-    as match {
-      case Vacio => z
-      case Cons(h,t) => f(h, foldRight(t, z)(f))
-    }
-  }
+  def foldRight[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = ???
 
   def sumFold(ints: Lista[Int]): Int = ???
 
@@ -121,12 +116,7 @@ object Lista {
   def length[A](as: Lista[A]): Int = ???
 
   //@tailrec
-  def foldLeft[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = {
-    as match {
-      case Vacio => z
-      case Cons(h,t) => foldLeft(t, f(z, h))(f)
-    }
-  }
+  def foldLeft[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = ???
 
   def sumFoldLeft(ints: Lista[Int]): Int = ???
 
@@ -150,35 +140,21 @@ object Lista {
 
   def appendFoldRight[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
 
-  def appendLists[A](as: Lista[Lista[A]]): Lista[A] = {
-    foldRight(as, Vacio: Lista[A])(append)
-  }
+  def appendLists[A](as: Lista[Lista[A]]): Lista[A] = ???
 
   // -------------------- Sesion 7 --------------------
 
-  def addOne(l: Lista[Int]): Lista[Int] = {
-    foldRight(l, Vacio: Lista[Int])((elem, acc) => Cons(elem+1, acc))
-  }
+  def addOne(l: Lista[Int]): Lista[Int] = ???
 
-  def doubleToString(l: Lista[Double]): Lista[String] = {
-    foldRight(l, Vacio: Lista[String])((elem, acc) => Cons(elem.toString, acc))
-  }
+  def doubleToString(l: Lista[Double]): Lista[String] = ???
 
-  def map[A, B](l: Lista[A])(f: A => B): Lista[B] = {
-    foldRight(l, Vacio: Lista[B])((elem, acc) => Cons(f(elem), acc))
-  }
+  def map[A, B](l: Lista[A])(f: A => B): Lista[B] = ???
 
-  def filter[A](l: Lista[A])(f: A => Boolean): Lista[A] = {
-    foldRight(l, Vacio: Lista[A])((elem, acc) => if (f(elem)) Cons(elem, acc) else acc)
-  }
+  def filter[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
 
-  def flatMap[A, B](l: Lista[A])(f: A => Lista[B]): Lista[B] = {
-    appendLists(map(l)(f))
-  }
+  def flatMap[A, B](l: Lista[A])(f: A => Lista[B]): Lista[B] = ???
 
-  def filterFlatMap[A](l: Lista[A])(f: A => Boolean): Lista[A] = {
-    flatMap(l)(a=> if (f(a)) Lista(a) else Vacio)
-  }
+  def filterFlatMap[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
 
   def tieneSubsecuencia[A](lista: Lista[A], sub: Lista[A]): Boolean = ???
 
