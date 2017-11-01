@@ -34,7 +34,7 @@ object Lista {
   def tail[A](list: Lista[A]): Lista[A] = {
     list match {
       case Vacio => Vacio
-      case Cons(h,t) => t
+      case Cons(_,t) => t
     }
   }
 
@@ -85,11 +85,12 @@ object Lista {
 
   def init[A](l: Lista[A]): Lista[A] = {
 
+    @tailrec
     def loop(acc: Lista[A], rest: Lista[A]): Lista[A] = {
 
       rest match {
         case Vacio => acc
-        case Cons(h, Vacio) => acc
+        case Cons(_, Vacio) => acc
         case Cons(h, t) => loop(append(acc, Lista(h)), t)
       }
 
