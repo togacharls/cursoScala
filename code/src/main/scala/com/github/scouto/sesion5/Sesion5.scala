@@ -6,6 +6,15 @@ import scala.annotation.tailrec
   * Created by scouto.
   */
 object Sesion5 extends App{
+//
+//  Implicit Example
+//    import java.time.LocalDate
+//    val date1: ChronoLocalDate = LocalDate.parse("2017-02-07")
+//    val date2: ChronoLocalDate = LocalDate.parse("2017-02-07")
+//
+//    import scala.math.Ordering.Implicits._
+//
+//    date1 >= date2
 
 
 
