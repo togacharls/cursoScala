@@ -15,7 +15,7 @@ class ListaTest extends FlatSpec with Matchers with PropertyChecks{
     sum(Vacio) should be (0)
   }
 
-  "sum" should "return the addition" in {
+  it should "return the addition" in {
     sum(Lista(1,2)) should be (3)
     sum(Lista(-1,2)) should be (1)
     sum(Lista(16)) should be (16)
@@ -160,7 +160,6 @@ class ListaTest extends FlatSpec with Matchers with PropertyChecks{
     assert(init(Lista(5, 4)) == Lista(5))
     assert(init(Lista(5, 4, 3, 2, 1)) == Lista(5, 4, 3, 2))
   }
-
 
 
 

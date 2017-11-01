@@ -111,7 +111,7 @@ object Lista {
 
   def sumFold(ints: Lista[Int]): Int = ???
 
-  def productFold(ints: Lista[Int]) : Double = ???
+  def productFold(ints: Lista[Double]) : Double = ???
 
   def length[A](as: Lista[A]): Int = ???
 
@@ -120,21 +120,27 @@ object Lista {
 
   def sumFoldLeft(ints: Lista[Int]): Int = ???
 
-  def productFoldLeft(ints: Lista[Int]) : Double = ???
+  def productFoldLeft(ints: Lista[Double]) : Double = ???
 
   def lengthFoldLeft[A](as: Lista[A]): Int = ???
 
   def reverse[A](as: Lista[A]): Lista [A] = ???
 
-  def foldRightbyLeft[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = ???
+  def foldRightbyLeft[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = ???
 
   def foldLeftbyRight[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = ???
 
-  def appendfoldLeft[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
+  def productFoldRightLeft(ints: Lista[Double]) : Double = ???
 
-  def appendfoldLeft[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
+  def productFoldLeftRight(ints: Lista[Double]) : Double = ???
 
-  def appendLists[A](as: List[List[A]]): List[A] = ???
+  def lengthLeftRight[A](as: Lista[A]): Int = ???
+
+  def lengthRightLeft[A](as: Lista[A]): Int = ???
+
+  def appendFoldRight[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
+
+  def appendLists[A](as: Lista[Lista[A]]): Lista[A] = ???
 
   }
 
