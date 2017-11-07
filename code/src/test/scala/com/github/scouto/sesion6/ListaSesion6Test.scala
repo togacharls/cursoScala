@@ -121,6 +121,27 @@ class ListaSesion6Test extends FlatSpec with Matchers with PropertyChecks{
     productFoldLeftRight(Lista(16, -20)) should be ( product(Lista(16, -20)))
   }
 
+  "sumFoldRightLeft" should "work the same as sum" in {
+
+    sumFoldRightLeft(Lista()) should be (sum(Lista()))
+    sumFoldRightLeft(Vacio) should be (sum(Vacio))
+    sumFoldRightLeft(Lista(1,2)) should be (sum(Lista(1,2)))
+    sumFoldRightLeft(Lista(-1,2)) should be (sum(Lista(-1,2)))
+    sumFoldRightLeft(Lista(16)) should be (sum(Lista(16)))
+    sumFoldRightLeft(Lista(16, -20)) should be ( sum(Lista(16, -20)))
+  }
+
+
+  "sumFoldLeftRight" should "work the same as sum" in {
+
+    sumFoldLeftRight(Lista()) should be (sum(Lista()))
+    sumFoldLeftRight(Vacio) should be (sum(Vacio))
+    sumFoldLeftRight(Lista(1,2)) should be (sum(Lista(1,2)))
+    sumFoldLeftRight(Lista(-1,2)) should be (sum(Lista(-1,2)))
+    sumFoldLeftRight(Lista(16)) should be (sum(Lista(16)))
+    sumFoldLeftRight(Lista(16, -20)) should be ( sum(Lista(16, -20)))
+  }
+
 
   "lengthLeftRight" should "be the same as length" in {
     val l = Lista()
@@ -143,7 +164,7 @@ class ListaSesion6Test extends FlatSpec with Matchers with PropertyChecks{
     assert(appendLists(l) == Vacio)
   }
 
-  "appendLists" should "ne a plain list" in {
+  it should "return a plain list" in {
     val l1 = Lista(Lista(1))
     val l2 = Lista(Lista(1,2,3), Lista(4), Lista(5,6,7))
     assert(appendLists(l1) == Lista(1))

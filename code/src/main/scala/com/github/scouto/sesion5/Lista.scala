@@ -87,18 +87,20 @@ object Lista {
 
     @tailrec
     def loop(acc: Lista[A], rest: Lista[A]): Lista[A] = {
-
+//
       rest match {
         case Vacio => acc
         case Cons(_, Vacio) => acc
         case Cons(h, t) => loop(append(acc, Lista(h)), t)
       }
 
+
+//
 //      rest match {
 //        case Vacio => acc
-//        case Cons(h, t) => t match {
+//        case Cons(h1, t) => t match {
 //          case Vacio => acc
-//          case Cons(h, t) => loop(append(acc, Lista(h)), t)
+//          case _ => loop(append(acc, Lista(h1)), t)
 //        }
 //      }
     }
@@ -107,40 +109,94 @@ object Lista {
 
   // -------------------- Sesion 6 --------------------
 
-  def foldRight[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = ???
+  def foldRight[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = {
 
-  def sumFold(ints: Lista[Int]): Int = ???
+    as match {
+      case Vacio => z
+      case Cons (h, t) => f(h, foldRight(t, z)(f))
+    }
+  }
 
-  def productFold(ints: Lista[Double]) : Double = ???
+  def sumFold(ints: Lista[Int]): Int = {
+    foldRight(ints, 0)(_ +_ )
+  }
 
-  def length[A](as: Lista[A]): Int = ???
+  def productFold(ints: Lista[Double]) : Double = {
+    foldRight(ints, 1.0)(_ *_ )
 
-  //@tailrec
-  def foldLeft[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = ???
+  }
 
-  def sumFoldLeft(ints: Lista[Int]): Int = ???
+  def length[A](as: Lista[A]): Int = {
+    foldRight(as, 0)((_, acc) => acc + 1)
+  }
 
-  def productFoldLeft(ints: Lista[Double]) : Double = ???
+  @tailrec
+  def foldLeft[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = {
+    as match {
+      case Vacio => z
+      case Cons(h,t) => foldLeft(t, f(z, h))(f)
+    }
+  }
 
-  def lengthFoldLeft[A](as: Lista[A]): Int = ???
+  def sumFoldLeft(ints: Lista[Int]): Int = {
+    foldLeft(ints, 0)(_ +_)
+  }
 
-  def reverse[A](as: Lista[A]): Lista [A] = ???
+  def productFoldLeft(ints: Lista[Double]) : Double = {
+    foldLeft(ints, 1.0)(_ * _)
+  }
 
-  def foldRightbyLeft[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = ???
+  def lengthFoldLeft[A](as: Lista[A]): Int = {
+    foldLeft(as, 0)((acc, _) => acc +1)
+  }
 
-  def foldLeftbyRight[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = ???
+  def reverse[A](as: Lista[A]): Lista [A] = {
+    foldLeft(as, Lista[A]())((acc, elem) =>  Cons (elem, acc))
+//    foldLeft(as, Lista[A]())((acc, elem) =>  append (Lista(elem), acc))
+//    foldRight(as, Vacio: Lista[A])((elem, acc) => append(acc, Lista(elem)))
+  }
 
-  def productFoldRightLeft(ints: Lista[Double]) : Double = ???
+  def foldRightbyLeft[A,B](as: Lista[A], z: B) (f: (A, B) => B) : B = {
+    foldLeft(as, z)((acc,elem) => f(elem, acc))
+  }
 
-  def productFoldLeftRight(ints: Lista[Double]) : Double = ???
+  def foldLeftbyRight[A,B](as: Lista[A], z: B) (f: (B, A) => B) : B = {
+    foldRight(as, z)((elem, acc) => f(acc, elem))
+  }
 
-  def lengthLeftRight[A](as: Lista[A]): Int = ???
+  def sumFoldRightLeft(ints: Lista[Int]) : Int = {
+    foldRightbyLeft(ints, 0)(_ +_ )
+  }
 
-  def lengthRightLeft[A](as: Lista[A]): Int = ???
+  def sumFoldLeftRight(ints: Lista[Int]) : Int = {
+    foldLeftbyRight(ints, 0)(_ +_ )
+  }
 
-  def appendFoldRight[A](a1: Lista[A], a2: Lista[A]): Lista[A] = ???
+  def productFoldRightLeft(ints: Lista[Double]) : Double = {
+    foldRightbyLeft(ints, 1.0)(_ *_ )
+  }
 
-  def appendLists[A](as: Lista[Lista[A]]): Lista[A] = ???
+  def productFoldLeftRight(ints: Lista[Double]) : Double = {
+    foldLeftbyRight(ints, 1.0)(_ *_ )
+  }
+
+  def lengthLeftRight[A](as: Lista[A]): Int = {
+    foldLeftbyRight(as, 0)((acc, _) => acc +1)
+  }
+
+  def lengthRightLeft[A](as: Lista[A]): Int = {
+    foldRightbyLeft(as, 0)((_, acc) => acc +1)
+  }
+
+  def appendFoldRight[A](a1: Lista[A], a2: Lista[A]): Lista[A] = {
+    foldRight(a1, a2)((elem, acc) => Cons(elem, acc))
+  }
+
+  def appendLists[A](as: Lista[Lista[A]]): Lista[A] = {
+//    foldRight(as, Vacio: Lista[A])((elem, acc) => appendFoldRight(elem, acc))
+//    foldRight(as, Vacio: Lista[A])(appendFoldRight(_, _))
+    foldRight(as, Vacio: Lista[A])(appendFoldRight)
+  }
 
   }
 
