@@ -198,6 +198,23 @@ object Lista {
     foldRight(as, Vacio: Lista[A])(appendFoldRight)
   }
 
+
+  // -------------------- Sesion 7 --------------------
+
+  def addOne(l: Lista[Int]): Lista[Int] = ???
+
+  def doubleToString(l: Lista[Double]): Lista[String] = ???
+
+  def map[A, B](l: Lista[A])(f: A => B): Lista[B] = ???
+
+  def filter[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
+
+  def flatMap[A, B](l: Lista[A])(f: A => Lista[B]): Lista[B] = ???
+
+  def filterFlatMap[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
+
+  def tieneSubsecuencia[A](lista: Lista[A], sub: Lista[A]): Boolean = ???
+
   }
 
 
