@@ -201,17 +201,83 @@ object Lista {
 
   // -------------------- Sesion 7 --------------------
 
-  def addOne(l: Lista[Int]): Lista[Int] = ???
+  def addOne(l: Lista[Int]): Lista[Int] = {
+//    foldRight(l, Vacio: Lista[Int])((elem, acc) => Cons(elem+1, acc))
+    foldLeft(l, Vacio: Lista[Int])((acc, elem) => append(acc,Lista(elem+1)))
+  }
 
-  def doubleToString(l: Lista[Double]): Lista[String] = ???
+  def doubleToString(l: Lista[Double]): Lista[String] = {
+//    foldRight(l, Vacio: Lista[String])((elem, acc) => Cons(elem.toString, acc))
+        foldLeft(l, Vacio: Lista[String])((acc, elem) => append(acc,Lista(elem.toString)))
+  }
 
-  def map[A, B](l: Lista[A])(f: A => B): Lista[B] = ???
+  def map[A, B](l: Lista[A])(f: A => B): Lista[B] = {
+//    foldRight(l, Vacio: Lista[B])((elem, acc) => Cons(f(elem), acc))
+    foldLeft(l, Vacio: Lista[B])((acc, elem) => append(acc,Lista(f(elem))))
 
-  def filter[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
+  }
 
-  def flatMap[A, B](l: Lista[A])(f: A => Lista[B]): Lista[B] = ???
+  def filter[A](l: Lista[A])(f: A => Boolean): Lista[A] = {
+//    foldRight(l, Vacio: Lista[A])((elem, acc) => if (f(elem)) Cons(elem, acc) else acc)
+    foldLeft(l, Vacio: Lista[A])((acc, elem) => if (f(elem)) append(acc, Lista(elem)) else acc)
+  }
 
-  def filterFlatMap[A](l: Lista[A])(f: A => Boolean): Lista[A] = ???
+  def flatMap[A, B](l: Lista[A])(f: A => Lista[B]): Lista[B] = {
+      appendLists(map(l)(f))
+  }
+
+  def filterFlatMap[A](l: Lista[A])(f: A => Boolean): Lista[A] = {
+      flatMap(l)(elem => if(f(elem)) Lista(elem) else Vacio)
+  }
+
+  def addLists(a1: Lista[Int], a2: Lista[Int]) : Lista[Int] = {
+
+    @tailrec
+    def loop(acc: Lista[Int], rest1: Lista[Int], rest2: Lista[Int]): Lista[Int] = {
+      (rest1, rest2) match {
+        case (Vacio, Vacio) => acc
+        case (Vacio, _) => Vacio
+        case (_, Vacio) => Vacio
+        case (Cons(h1, t1), Cons(h2, t2)) => loop(append(acc, Lista(h1+h2)), t1, t2)
+      }
+
+
+    }
+    loop(Vacio, a1, a2)
+
+//    (a1, a2) match {
+//      case (Vacio, _) => Vacio
+//      case (_, Vacio) => Vacio
+//      case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1+h2, addLists(t1, t2))
+//    }
+
+  }
+
+  def zipWith[A, B, C](a1: Lista[A], a2: Lista[B])(f: (A, B) => C) : Lista[C] = {
+
+    @tailrec
+    def loop(acc: Lista[C], rest1: Lista[A], rest2: Lista[B]): Lista[C] = {
+      (rest1, rest2) match {
+        case (Vacio, Vacio) => acc
+        case (Vacio, _) => Vacio
+        case (_, Vacio) => Vacio
+        case (Cons(h1, t1), Cons(h2, t2)) => loop(append(acc, Lista(f(h1,h2))), t1, t2)
+      }
+    }
+    loop(Vacio, a1, a2)
+
+
+//    (a1, a2) match {
+//      case (Vacio, _) => Vacio
+//      case (_, Vacio) => Vacio
+//      case (Cons(h1,t1), Cons(h2,t2)) => Cons(f(h1, h2), zipWith(t1,t2)(f))
+//    }
+  }
+
+
+  def empiezaPor[A](lista: Lista[A], sub: Lista[A]): Boolean = ???
+
+
 
   def tieneSubsecuencia[A](lista: Lista[A], sub: Lista[A]): Boolean = ???
 

@@ -75,6 +75,50 @@ class ListaSesion7Test extends FlatSpec with Matchers with PropertyChecks{
   }
 
 
+  "addLists" should "do this" in {
+    val l1 = Lista(1, 3, 6, 7, 10)
+    val l2 = Lista(1, 2, 3, 4, 5)
+    val l3 = Lista(1, 2, 3)
+    assert(addLists(l1, l2) == Lista(2, 5, 9, 11, 15))
+    assert(addLists(l1, l3) == Vacio)
+  }
+
+  "zipWith" should "do this" in {
+    val l1 = Lista(1, 3, 6, 7, 10)
+    val l2 = Lista(1, 2, 3, 4, 5)
+    val l3 = Lista(1, 2, 3)
+
+    assert(addLists(l1, l2) == zipWith(l1, l2)((a, b) => a+b))
+    assert(Lista(0, 1, 3, 3, 5) == zipWith(l1, l2)((a, b) => a - b))
+    assert(zipWith(l1, l3)((a, b) => a - b) == Vacio)
+
+  }
+
+  "startWith" should "do this" in {
+    val l1 = Lista(1, 2,3, 4)
+    assert(empiezaPor(l1, Lista(1)))
+    assert(empiezaPor(l1, Lista(1, 2)))
+    assert(!empiezaPor(l1, Lista(2)))
+    assert(!empiezaPor(l1, Lista(2, 3)))
+    assert(!empiezaPor(l1, Lista(4)))
+    assert(empiezaPor(l1, Vacio))
+    assert(empiezaPor(Vacio, Vacio))
+    assert(!empiezaPor(Vacio, Lista(1)))
+  }
+
+  "hasSubsequence" should "do this" in {
+    val l1 = Lista(1, 2,3, 4)
+    assert(tieneSubsecuencia(l1, Lista(1)))
+    assert(tieneSubsecuencia(l1, Lista(1, 2)))
+    assert(tieneSubsecuencia(l1, Lista(2)))
+    assert(tieneSubsecuencia(l1, Lista(2, 3)))
+    assert(tieneSubsecuencia(l1, Lista(4)))
+    assert(tieneSubsecuencia(l1, Vacio))
+    assert(tieneSubsecuencia(Vacio, Vacio))
+    assert(!tieneSubsecuencia(Vacio, Lista(1)))
+  }
+
+
 
   }
 
