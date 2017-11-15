@@ -18,6 +18,7 @@ object Sesion8 extends App{
     x <- xs
     if x % 2 == 0
   } yield x
+  //xs.filter(x => x%2 == 0)
 
   println("filtered: " + filtered)
 
@@ -26,11 +27,9 @@ object Sesion8 extends App{
     x <- xs
     if x % 2 == 0
   } yield x + 1
+  //xs.filter(x => x%2 == 0).map(x => x + 1)
 
   println("filteredMapped: " + filtered)
-
-
-
 
   xs.flatMap(x => ys.map(y => (x, y)))
 
