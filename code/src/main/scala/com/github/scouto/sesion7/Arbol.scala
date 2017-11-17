@@ -17,7 +17,7 @@ object Arbol {
 
   def maximum (t: Arbol[Int]): Int = {
     t match {
-      case Hoja(x) => x
+        case Hoja(x) => x
       case Rama(l, r) => maximum(l) max maximum(r)
     }
   }
@@ -36,15 +36,31 @@ object Arbol {
     }
   }
 
-  def fold[A, B] (t:Arbol[A])(f: A=> B)(g: (B, B) => B): B = ???
 
-  def sizeFold[A] (t: Arbol[A]): Int = ???
+  def fold[A, B] (t:Arbol[A])(f: A=> B)(g: (B, B) => B): B = {
+    t match {
+      case Hoja(a) => f(a)
+      case Rama(l, r) =>  g(fold(l)(f)(g), fold(r)(f)(g))
+    }
+
+  }
+
+  def sizeFold[A] (t: Arbol[A]): Int = {
+//    fold(t)(a => 1)((l, r) => 1 + l + r)
+    fold(t)(a => 1)(1 + _ + _)
+  }
 
 
-  def maximumFold (t: Arbol[Int]): Int = ???
+  def maximumFold (t: Arbol[Int]): Int = {
+    fold(t)(a => a)(_ max _)
+  }
 
-  def depthFold[A] (t:Arbol[A]) : Int = ???
+  def depthFold[A] (t:Arbol[A]) : Int = {
+    fold(t)(_ => 1)((l,r) =>1 + (l max r))
+  }
 
-  def mapFold[A, B] (t:Arbol[A])(f:A => B): Arbol[B] = ???
+  def mapFold[A, B] (t:Arbol[A])(f:A => B): Arbol[B] = {
+    fold(t)(a => Hoja(f(a)): Arbol[B])((l,r) => Rama(l, r))
+  }
 }
 

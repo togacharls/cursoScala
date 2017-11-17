@@ -113,11 +113,13 @@ class ListaSesion7Test extends FlatSpec with Matchers with PropertyChecks{
     assert(tieneSubsecuencia(l1, Lista(2)))
     assert(tieneSubsecuencia(l1, Lista(2, 3)))
     assert(tieneSubsecuencia(l1, Lista(4)))
+    assert(!tieneSubsecuencia(l1, Lista(1, 3)))
     assert(tieneSubsecuencia(l1, Vacio))
     assert(tieneSubsecuencia(Vacio, Vacio))
     assert(!tieneSubsecuencia(Vacio, Lista(1)))
-  }
+    assert(tieneSubsecuencia(l1, Lista(1,2)))
 
+  }
 
 
   }
