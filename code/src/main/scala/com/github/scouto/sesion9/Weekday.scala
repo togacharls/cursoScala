@@ -3,16 +3,16 @@ package com.github.scouto.sesion9
 /**
   * Created by scouto.
   */
+
+object WeekdayBasic extends Enumeration {
+  val Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo = Value
+}
+
 object Weekday extends Enumeration {
 
-  val Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo = Value
+//  val Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo = Value
 
-  case class WeekdayValue(val i: Int, val name: String, val laborable: Boolean, val horasQueTRabajo: Int) extends Val(i: Int, name: String) {
-    def isLaborable = laborable
-  }
-
-
-  val Monday = WeekdayValue(1, "Lunes", true, 8)
+  val Monday = Value("Lunes")
   val Tuesday = Value("Martes")
   val Wednesday = Value("Miercoles")
   val Thursday = Value("Jueves")
@@ -22,10 +22,49 @@ object Weekday extends Enumeration {
 
 }
 
+object WeekdayOwn extends Enumeration {
+
+  //  val Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo = Value
+
+  case class WeekdayValue(i: Int, name: String, laborable: Boolean) extends Val(i: Int, name: String) {
+    def isLaborable = laborable
+  }
+
+
+  val Monday = WeekdayValue(0, "Lunes", true)
+  val Tuesday = WeekdayValue(1, "Martes", true)
+  val Wednesday = WeekdayValue(2, "Miercoles", true)
+  val Thursday = WeekdayValue(3, "Jueves", true)
+  val Friday = WeekdayValue(4, "Viernes", true)
+  val Saturday = WeekdayValue(5, "Sabado", false)
+  val Sunday = WeekdayValue(6, "Domingo", false)
+
+
+}
+
 object MyApp extends App{
 
+  def isLaborable(weekday: Weekday.Value): Boolean = {
+      weekday match {
+        case Weekday.Sunday => true
+        case Weekday.Saturday => true
+        case _ => true
+      }
+  }
+
+  def isLaborableOwn(weekday: WeekdayOwn.WeekdayValue): Boolean = {
+    weekday.isLaborable
+  }
+
+  val weekDayValuesList = Weekday.values.toList
+  val weekDayValuesMap = weekDayValuesList.map(elem => (elem.id, elem.toString)).toMap
+
   println(
-    Weekday.values.toList
+    weekDayValuesList.sortBy(_.toString)
+  )
+
+  println(
+    weekDayValuesMap.toList.sorted
   )
 
 
