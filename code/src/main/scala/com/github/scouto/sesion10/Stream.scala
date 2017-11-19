@@ -100,6 +100,32 @@ sealed trait Stream[+A] {
 //    foldRight(true)((elem, acc) => p(elem) && acc)
     foldLeft(true)((acc, elem) => p(elem) && acc)
   }
+
+
+  def headOptionFold: Option[A] = {
+      foldRight(None: Option[A])((elem, _) => Some(elem))
+  }
+
+  def takeWhileFold(p: A => Boolean): Stream[A] = {
+      foldRight(empty[A])((elem, acc) => if (p(elem)) cons(elem, acc) else Empty)
+  }
+
+  def map[B](f: A => B): Stream[B] = {
+    foldRight(empty[B])((elem, acc) => cons(f(elem), acc))
+  }
+
+  def filter(p: A => Boolean): Stream[A] = {
+    foldRight(empty[A])((elem, acc) => if (p(elem)) cons(elem, acc) else acc)
+  }
+
+
+  def append[B >: A](other: => Stream[B]): Stream[B] = {
+    foldRight(other)((elem, acc) => cons(elem, acc))
+  }
+
+  def flatMap[B](f: A => Stream[B]): Stream[B] = {
+    foldRight(empty[B])((elem, acc) => f(elem) append acc )
+  }
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
