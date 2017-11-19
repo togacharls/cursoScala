@@ -107,8 +107,8 @@ class StreamTest extends FlatSpec with Matchers with PropertyChecks {
     stream.takeWhile(_ %2 != 0).toList should be (List(1))
     stream.takeWhile(_ < 10).toList should be (List(1, 2, 3))
     stream.takeWhile(_ < -10) should be (Stream())
-    stream.takeWhile(x => true) should be (Stream())
-    stream.takeWhile(x => false).toList should be (List(1, 2, 3))
+    stream.takeWhile(x => false) should be (Stream())
+    stream.takeWhile(x => true).toList should be (List(1, 2, 3))
 
   }
 
