@@ -64,6 +64,42 @@ sealed trait Stream[+A] {
       case _ => empty
     }
   }
+
+  def exists(f: A => Boolean): Boolean = {
+    this match {
+      case Cons(h,t) => f(h()) || t().exists(f)
+      case _ => false
+    }
+  }
+
+  //Sesion 11
+  def foldRight[B](z: => B)(f: (A, => B) => B): B = {
+    this match {
+      case Cons(h,t) => f(h(), t().foldRight(z)(f))
+      case _ => z
+    }
+  }
+
+  @tailrec
+  final def foldLeft[B](z: => B)(f: ( => B, A) => B): B = {
+    this match {
+      case Cons(h,t) => t().foldLeft(f(z, h()))(f)
+      case _ => z
+    }
+  }
+
+  def existsFoldRight(f: A => Boolean): Boolean = {
+    foldRight(false)((elem, acc) => f(elem) || acc)
+  }
+
+  def existsFoldLeft(f: A => Boolean): Boolean = {
+    foldLeft(false)((acc, elem) => f(elem) || acc)
+  }
+
+  def forAll(p: A => Boolean): Boolean = {
+//    foldRight(true)((elem, acc) => p(elem) && acc)
+    foldLeft(true)((acc, elem) => p(elem) && acc)
+  }
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
@@ -78,7 +114,7 @@ object Stream {
     Cons(() => head, () => tail)
   }
 
-  //constructor de empty Stream con ti'o
+  //constructor de empty Stream con tipo
   def empty[A]: Stream[A] = Empty
 
   def apply[A](as: A*): Stream[A] = {
