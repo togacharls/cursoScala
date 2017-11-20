@@ -1,6 +1,7 @@
 package com.github.scouto.sesion11
 
 import com.github.scouto.sesion10.Stream
+import org.scalacheck.Gen
 import org.scalatest.prop.PropertyChecks
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -117,6 +118,46 @@ class StreamSesion11Test extends FlatSpec with Matchers with PropertyChecks {
     stream.flatMap(a => Stream(a, a)).toList should be (List(1,1,2,2,3,3))
   }
 
+
+  "find" should "return None for empty streams" in {
+    emptyIntStream.find(_ > 1) should be (None)
+  }
+
+  it should "be the first element that satisfies the predicate" in {
+    stream.find(_ % 2 == 0) should be (Some(2))
+    stream.find(_ % 2 != 0) should be (Some(1))
+  }
+
+
+
+  "fibs" should "be the proper fibonacci sequence" in {
+
+
+
+    val fibList = Stream.fibs.take(51).toList
+    fibList.head should be (0)
+    fibList(1) should be (1)
+    fibList(2) should be (1)
+    fibList(3) should be (2)
+    fibList(4) should be (3)
+    fibList(5) should be (5)
+    fibList(6) should be (8)
+    fibList(7) should be (13)
+    fibList(8) should be (21)
+    fibList(9) should be (34)
+
+    val genPositiveInteger = for (n <- Gen.choose(0, 50)) yield n
+    //Int.MaxValue = 2147483647
+    //a partir e fib(47) se pasa de MaxInt
+    forAll(genPositiveInteger) { (n: Int) =>
+      if (n<2) fibList(n) should be (n)
+
+      whenever(n >= 2) {
+        println(s"fib(${n}) equals: ${fibList(n)}")
+        fibList(n) should be (fibList(n-1) + fibList(n-2))
+      }
+    }
+  }
 
 
 
